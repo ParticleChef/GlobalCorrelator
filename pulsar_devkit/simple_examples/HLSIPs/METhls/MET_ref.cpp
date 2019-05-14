@@ -3,20 +3,25 @@
 #include "ap_int.h"
 #include "MET.h"
 
-#define TotalPt 3
+#define TotalN 3
 #define NEVENT 1
 
-void MET_ref( ap_int<8> allPT[TotalPt], ap_int<8> missPT[NEVENT] ) {
+void MET_ref( ap_int<8> allPT[TotalN], ap_int<8> &missPT, ap_int<8> allPhi[TotalN], ap_int<8> &missPhi ) {
 
 	int i;
 	int j;
 
-	for( j = 0; j < NEVENT; j++){
-		for( i = 0; i < TotalPt; i++){
-			ap_int<8> pt = allPT[i];
-			missPT[j] -= pt;
-		}
+	double totalX = 0;
+	double totalY = 0;
+
+	for( i = 0; i < TotalN; i++){
+		totalX -= allPT[i]*cos(allPhi[i]);
+		totalY -= allPT[i]*sin(allPhi[i]);
 	}
+
+	missPT = sqrt(pow(totalX,2)+pow(totalY,2));
+	missPhi = acos(double( totalX / missPT ) );
+
 
 }
 
