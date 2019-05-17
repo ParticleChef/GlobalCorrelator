@@ -1,0 +1,226 @@
+
+
+================================================================
+== Vivado HLS Report for 'MET_hw'
+================================================================
+* Date:           Fri May 17 02:41:05 2019
+
+* Version:        2018.2 (Build 2258646 on Thu Jun 14 20:25:20 MDT 2018)
+* Project:        met_testf
+* Solution:       solution1
+* Product family: virtex7
+* Target device:  xc7vx690tffg1927-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     6.081|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |  302|  485|  302|  485|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        +---------------------------------+----------------------+-----+-----+-----+-----+----------+
+        |                                 |                      |  Latency  |  Interval | Pipeline |
+        |             Instance            |        Module        | min | max | min | max |   Type   |
+        +---------------------------------+----------------------+-----+-----+-----+-----+----------+
+        |grp_pow_generic_double_s_fu_181  |pow_generic_double_s  |   81|   81|    1|    1| function |
+        |grp_pow_generic_double_s_fu_211  |pow_generic_double_s  |   81|   81|    1|    1| function |
+        |grp_generic_asin_float_s_fu_241  |generic_asin_float_s  |    1|  172|    1|  172|   none   |
+        |grp_sin_or_cos_float_s_fu_248    |sin_or_cos_float_s    |   25|   29|   25|   29|   none   |
+        |grp_sin_or_cos_float_s_fu_263    |sin_or_cos_float_s    |   25|   29|   25|   29|   none   |
+        +---------------------------------+----------------------+-----+-----+-----+-----+----------+
+
+        * Loop: 
+        +----------+-----+-----+----------+-----------+-----------+------+----------+
+        |          |  Latency  | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name| min | max |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------+-----+-----+----------+-----------+-----------+------+----------+
+        |- Loop 1  |  141|  153|  47 ~ 51 |          -|          -|     3|    no    |
+        +----------+-----+-----+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|     622|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |      146|    428|   46177|   33833|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|     899|
+|Register         |        -|      -|    1097|       -|
++-----------------+---------+-------+--------+--------+
+|Total            |      146|    428|   47274|   35354|
++-----------------+---------+-------+--------+--------+
+|Available        |     2940|   3600|  866400|  433200|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        4|     11|       5|       8|
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    +---------------------------------+----------------------+---------+-------+-------+------+
+    |             Instance            |        Module        | BRAM_18K| DSP48E|   FF  |  LUT |
+    +---------------------------------+----------------------+---------+-------+-------+------+
+    |MET_hw_dadddsub_6Thq_U80         |MET_hw_dadddsub_6Thq  |        0|      3|    686|   711|
+    |MET_hw_ddiv_64ns_VhK_U82         |MET_hw_ddiv_64ns_VhK  |        0|      0|   3183|  3288|
+    |MET_hw_dsub_64ns_UhA_U81         |MET_hw_dsub_64ns_UhA  |        0|      3|    686|   711|
+    |MET_hw_fmul_32ns_PgM_U73         |MET_hw_fmul_32ns_PgM  |        0|      3|    143|   139|
+    |MET_hw_fmul_32ns_PgM_U74         |MET_hw_fmul_32ns_PgM  |        0|      3|    143|   139|
+    |MET_hw_fpext_32nsNgs_U77         |MET_hw_fpext_32nsNgs  |        0|      0|    100|   138|
+    |MET_hw_fpext_32nsNgs_U78         |MET_hw_fpext_32nsNgs  |        0|      0|    100|   138|
+    |MET_hw_fptrunc_64Rg6_U76         |MET_hw_fptrunc_64Rg6  |        0|      0|    128|    94|
+    |MET_hw_fsqrt_32nsShg_U79         |MET_hw_fsqrt_32nsShg  |        0|      0|    397|   524|
+    |MET_hw_fsub_32ns_OgC_U72         |MET_hw_fsub_32ns_OgC  |        0|      2|    306|   246|
+    |MET_hw_sitodp_32sWhU_U83         |MET_hw_sitodp_32sWhU  |        0|      0|    412|   461|
+    |MET_hw_sitofp_32sQgW_U75         |MET_hw_sitofp_32sQgW  |        0|      0|    229|   365|
+    |grp_generic_asin_float_s_fu_241  |generic_asin_float_s  |        4|      0|   1596|  4557|
+    |grp_pow_generic_double_s_fu_181  |pow_generic_double_s  |       71|    184|  17060|  8088|
+    |grp_pow_generic_double_s_fu_211  |pow_generic_double_s  |       71|    184|  17060|  8088|
+    |grp_sin_or_cos_float_s_fu_248    |sin_or_cos_float_s    |        0|     23|   1974|  3073|
+    |grp_sin_or_cos_float_s_fu_263    |sin_or_cos_float_s    |        0|     23|   1974|  3073|
+    +---------------------------------+----------------------+---------+-------+-------+------+
+    |Total                            |                      |      146|    428|  46177| 33833|
+    +---------------------------------+----------------------+---------+-------+-------+------+
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +----------------------------------+----------+-------+---+-----+------------+------------+
+    |           Variable Name          | Operation| DSP48E| FF| LUT | Bitwidth P0| Bitwidth P1|
+    +----------------------------------+----------+-------+---+-----+------------+------------+
+    |i_2_fu_352_p2                     |     +    |      0|  0|   10|           2|           1|
+    |sh_assign_7_fu_559_p2             |     +    |      0|  0|   16|           8|           9|
+    |sh_assign_fu_415_p2               |     +    |      0|  0|   16|           8|           9|
+    |p_Val2_i_i_i1_fu_645_p2           |     -    |      0|  0|   15|           1|           8|
+    |p_Val2_i_i_i_fu_501_p2            |     -    |      0|  0|   15|           1|           8|
+    |tmp_238_i_i_i1_fu_573_p2          |     -    |      0|  0|   15|           7|           8|
+    |tmp_238_i_i_i_fu_429_p2           |     -    |      0|  0|   15|           7|           8|
+    |exitcond_fu_346_p2                |   icmp   |      0|  0|    8|           2|           2|
+    |tmp_240_i_i_i1_fu_603_p2          |   lshr   |      0|  0|   66|          25|          25|
+    |tmp_240_i_i_i_fu_459_p2           |   lshr   |      0|  0|   66|          25|          25|
+    |ap_block_state10_on_subcall_done  |    or    |      0|  0|    2|           1|           1|
+    |missPhi_V                         |  select  |      0|  0|    8|           1|           8|
+    |p_Val2_122_fu_493_p3              |  select  |      0|  0|    8|           1|           8|
+    |p_Val2_127_fu_637_p3              |  select  |      0|  0|    8|           1|           8|
+    |p_Val2_130_fu_506_p3              |  select  |      0|  0|    8|           1|           8|
+    |sh_assign_6_fu_439_p3             |  select  |      0|  0|    9|           1|           9|
+    |sh_assign_8_fu_583_p3             |  select  |      0|  0|    9|           1|           9|
+    |tmp_241_i_i_i1_fu_609_p2          |    shl   |      0|  0|  164|          55|          55|
+    |tmp_241_i_i_i_fu_465_p2           |    shl   |      0|  0|  164|          55|          55|
+    +----------------------------------+----------+-------+---+-----+------------+------------+
+    |Total                             |          |      0|  0|  622|         203|         264|
+    +----------------------------------+----------+-------+---+-----+------------+------------+
+
+    * Multiplexer: 
+    +--------------------+-----+-----------+-----+-----------+
+    |        Name        | LUT | Input Size| Bits| Total Bits|
+    +--------------------+-----+-----------+-----+-----------+
+    |ap_NS_fsm           |  797|        183|    1|        183|
+    |grp_fu_291_p0       |   15|          3|   32|         96|
+    |grp_fu_294_p0       |   15|          3|   64|        192|
+    |grp_fu_308_opcode   |   15|          3|    2|          6|
+    |grp_fu_308_p0       |   15|          3|   64|        192|
+    |grp_fu_308_p1       |   15|          3|   64|        192|
+    |i_reg_146           |    9|          2|    2|          4|
+    |x_assign_1_reg_169  |    9|          2|   64|        128|
+    |x_assign_6_reg_157  |    9|          2|   64|        128|
+    +--------------------+-----+-----------+-----+-----------+
+    |Total               |  899|        204|  357|       1121|
+    +--------------------+-----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------------------------------------+-----+----+-----+-----------+
+    |                     Name                     |  FF | LUT| Bits| Const Bits|
+    +----------------------------------------------+-----+----+-----+-----------+
+    |allPhi_V_load_reg_675                         |    8|   0|    8|          0|
+    |ap_CS_fsm                                     |  182|   0|  182|          0|
+    |grp_generic_asin_float_s_fu_241_ap_start_reg  |    1|   0|    1|          0|
+    |grp_pow_generic_double_s_fu_181_ap_start_reg  |    1|   0|    1|          0|
+    |grp_pow_generic_double_s_fu_211_ap_start_reg  |    1|   0|    1|          0|
+    |grp_sin_or_cos_float_s_fu_248_ap_start_reg    |    1|   0|    1|          0|
+    |grp_sin_or_cos_float_s_fu_263_ap_start_reg    |    1|   0|    1|          0|
+    |i_2_reg_660                                   |    2|   0|    2|          0|
+    |i_op_assign_1_reg_695                         |   32|   0|   32|          0|
+    |i_op_assign_2_reg_700                         |   32|   0|   32|          0|
+    |i_reg_146                                     |    2|   0|    2|          0|
+    |op2_1_reg_680                                 |    8|   0|    8|          0|
+    |p_Result_65_reg_787                           |    1|   0|    1|          0|
+    |p_Result_s_reg_745                            |    1|   0|    1|          0|
+    |p_Val2_122_reg_750                            |    8|   0|    8|          0|
+    |p_Val2_127_reg_792                            |    8|   0|    8|          0|
+    |p_Val2_130_reg_756                            |    8|   0|    8|          0|
+    |reg_326                                       |   32|   0|   32|          0|
+    |reg_334                                       |   64|   0|   64|          0|
+    |reg_340                                       |   32|   0|   32|          0|
+    |tmp_70_reg_767                                |   64|   0|   64|          0|
+    |tmp_71_reg_772                                |   64|   0|   64|          0|
+    |tmp_75_reg_705                                |   32|   0|   32|          0|
+    |tmp_76_reg_715                                |   64|   0|   64|          0|
+    |tmp_77_reg_710                                |   32|   0|   32|          0|
+    |tmp_78_reg_720                                |   64|   0|   64|          0|
+    |tmp_i6_reg_735                                |   64|   0|   64|          0|
+    |tmp_i_i_i_reg_777                             |   32|   0|   32|          0|
+    |tmp_i_reg_730                                 |   64|   0|   64|          0|
+    |val_assign_8_reg_782                          |   32|   0|   32|          0|
+    |val_assign_reg_740                            |   32|   0|   32|          0|
+    |x_assign_1_reg_169                            |   64|   0|   64|          0|
+    |x_assign_6_reg_157                            |   64|   0|   64|          0|
+    +----------------------------------------------+-----+----+-----+-----------+
+    |Total                                         | 1097|   0| 1097|          0|
+    +----------------------------------------------+-----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------+-----+-----+------------+--------------+--------------+
+|     RTL Ports     | Dir | Bits|  Protocol  | Source Object|    C Type    |
++-------------------+-----+-----+------------+--------------+--------------+
+|ap_clk             |  in |    1| ap_ctrl_hs |    MET_hw    | return value |
+|ap_rst             |  in |    1| ap_ctrl_hs |    MET_hw    | return value |
+|ap_start           |  in |    1| ap_ctrl_hs |    MET_hw    | return value |
+|ap_done            | out |    1| ap_ctrl_hs |    MET_hw    | return value |
+|ap_idle            | out |    1| ap_ctrl_hs |    MET_hw    | return value |
+|ap_ready           | out |    1| ap_ctrl_hs |    MET_hw    | return value |
+|allPT_V_address0   | out |    2|  ap_memory |    allPT_V   |     array    |
+|allPT_V_ce0        | out |    1|  ap_memory |    allPT_V   |     array    |
+|allPT_V_q0         |  in |    8|  ap_memory |    allPT_V   |     array    |
+|missPT_V           | out |    8|   ap_vld   |   missPT_V   |    pointer   |
+|missPT_V_ap_vld    | out |    1|   ap_vld   |   missPT_V   |    pointer   |
+|allPhi_V_address0  | out |    2|  ap_memory |   allPhi_V   |     array    |
+|allPhi_V_ce0       | out |    1|  ap_memory |   allPhi_V   |     array    |
+|allPhi_V_q0        |  in |    8|  ap_memory |   allPhi_V   |     array    |
+|missPhi_V          | out |    8|   ap_vld   |   missPhi_V  |    pointer   |
+|missPhi_V_ap_vld   | out |    1|   ap_vld   |   missPhi_V  |    pointer   |
++-------------------+-----+-----+------------+--------------+--------------+
+

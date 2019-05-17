@@ -1,5 +1,5 @@
 # open the project, don't forget to reset
-open_project -reset met_test1
+open_project -reset met_testf
 set_top MET_hw
 add_files MET.cpp
 add_files -tb MET_test.cpp 

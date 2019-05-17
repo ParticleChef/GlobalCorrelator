@@ -24,8 +24,8 @@ int main() {
 		allPhi[1] = 0.8+test;
 //		allPhi[2] = 0.6+test;
 
-		printf("test pt --> %lf, %lf\n",  double(allPT[0]),  double(allPT[1]) );
-		printf("test phi --> %lf, %lf\n", double(allPhi[0]), double(allPhi[1]) );
+		printf("test pt --> %d, %d\n",  int(allPT[0]),  int(allPT[1]) );
+		printf("test phi --> %d, %d\n", int(allPhi[0]), int(allPhi[1]) );
 
 		int i;
 		int j;
@@ -35,8 +35,8 @@ int main() {
 		MET_ref(allPT, missPT, allPhi, missPhi);
 		MET_hw( allPT, missPT, allPhi, missPhi);
 
-		printf( "test MET = %lf \n", double(missPT) );
-		printf( "test Phi = %lf \n", double(missPhi) );
+		printf( "test MET = %d \n", int(missPT) );
+		printf( "test Phi = %d \n", int(missPhi) );
 
 	}
 
