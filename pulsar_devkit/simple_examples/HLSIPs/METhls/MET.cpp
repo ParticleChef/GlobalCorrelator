@@ -8,20 +8,31 @@
 #define TotalN 3
 #define NEVENT 1
 
-void MET_hw( ap_int<8> allPT[TotalN], ap_int<8> &missPT, ap_int<8> allPhi[TotalN], ap_int<8> &missPhi ) {
+void MET_hw( ap_int<16> allPT[TotalN], ap_int<16> &missPT, ap_int<16> allPhi[TotalN], ap_int<16> &missPhi ) {
+	#pragma HLS pipeline II=2
+	#pragma HLS array_partition variable=allPT complete // block factor=2
+	#pragma HLS array_partition variable=allPhi complete // block factor=2
 
 	int i;
 	int j;
 
-	double totalX = 0;
-	double totalY = 0;
+	ap_int<16> totalX = 0;
+	ap_int<16> totalY = 0;
 
 	for( i = 0; i < TotalN; i++){
-		totalX -= allPT[i]*cosf(allPhi[i]);
-		totalY -= allPT[i]*sinf(allPhi[i]);
+		totalX = totalX -allPT[i]*cosf(allPhi[i]);
+		totalY = totalY -allPT[i]*sinf(allPhi[i]);
 	}
 
-	missPT = sqrtf(pow(totalX,2)+pow(totalY,2));
-	missPhi = acosf( double( totalX / missPT ) );
+	val_t num = totalX;
+	val_t den = missPT;
+	result_t &divi;
+
+//	division<ap_int<16>, result_t>(totalX, missPT, divi);
+//	division(num, den, divi);
+	division<val_t, result_t>(num, den, divi);
+
+	missPT = sqrtf( totalX*totalX + totalY*totalY );
+	missPhi = acosf( divi );
 
 }
