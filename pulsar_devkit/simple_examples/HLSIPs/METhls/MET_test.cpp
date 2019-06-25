@@ -4,20 +4,20 @@
 
 #define NTEST 1
 
-#define TotalN 2
-#define NEVENT 2
+//#define TotalN 2
+//#define NEVENT 2
 
 int main() {
 
-	ap_int<16> allPT_ref[TotalN];
-	ap_int<16> missPT_ref;
-	ap_int<16> allPhi_ref[TotalN];
-	ap_int<16> missPhi_ref;
+	pt_t allPT_ref[TotalN];
+	pt_t missPT_ref;
+	etaphi_t allPhi_ref[TotalN];
+	etaphi_t missPhi_ref;
 
-	ap_int<16> allPT_hw[TotalN];
-	ap_int<16> missPT_hw;
-	ap_int<16> allPhi_hw[TotalN];
-	ap_int<16> missPhi_hw;
+	pt_t allPT_hw[TotalN];
+	pt_t missPT_hw;
+	etaphi_t allPhi_hw[TotalN];
+	etaphi_t missPhi_hw;
 
 	for (int test = 0; test < NEVENT; ++test) {
 
@@ -25,20 +25,23 @@ int main() {
 		allPT_hw[1] = 4+test;
 //		allPT_hw[2] = -8+test;
 
-		allPhi_hw[0] = 0.7+test;
-		allPhi_hw[1] = 0.8+test;
+		allPhi_hw[0] = 1+test;
+		allPhi_hw[1] = 2+test;
 //		allPhi_hw[2] = 0.6+test;
 
 		allPT_ref[0] = 2+test;
 		allPT_ref[1] = 4+test;
 //		allPT_ref[2] = -8+test;
 
-		allPhi_ref[0] = 0.7+test;
-		allPhi_ref[1] = 0.8+test;
+		allPhi_ref[0] = 1+test;
+		allPhi_ref[1] = 2+test;
 //		allPhi_ref[2] = 0.6+test;
 
 		printf("test pt --> %d, %d\n",  int(allPT_ref[0]),  int(allPT_ref[1]) );
 		printf("test phi --> %d, %d\n", int(allPhi_ref[0]), int(allPhi_ref[1]) );
+
+//		printf("input pt --> %f, %f\n",  allPT_ref[0],  allPT_ref[1] );
+//		printf("input phi --> %f, %f\n", allPhi_ref[0], allPhi_ref[1] );
 
 		int i;
 		int j;
@@ -49,8 +52,17 @@ int main() {
 		MET_ref(allPT_ref, missPT_ref, allPhi_ref, missPhi_ref);
 		MET_hw( allPT_hw, missPT_hw, allPhi_hw, missPhi_hw);
 
-		printf( "test MET = %d \n", int(missPT_ref) );
-		printf( "test Phi = %d \n", int(missPhi_ref) );
+		printf( "test MET_ref = %d \n", int(missPT_ref) );
+		printf( "test Phi_ref = %d \n", int(missPhi_ref) );
+
+		printf( "test MET_hw = %d \n", int(missPT_hw) );
+		printf( "test Phi_hw = %d \n", int(missPhi_hw) );
+
+//		printf( "test MET_ref = %f \n", missPT_ref );
+//		printf( "test Phi_ref = %f \n", missPhi_ref );
+
+//		printf( "test MET_hw = %f \n", missPT_hw );
+//		printf( "test Phi_hw = %f \n", missPhi_hw );
 
 	}
 

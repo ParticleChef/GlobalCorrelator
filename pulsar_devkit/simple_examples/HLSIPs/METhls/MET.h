@@ -8,22 +8,30 @@
 #define N_TABLE_SIZE_NUM 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
 #define N_TABLE_SIZE_DEN 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
 
-typedef ap_uint<16> val_t;
+typedef ap_int<16> pt_t;
+typedef ap_int<10>  etaphi_t;
+
 // Type used for LUT (ap_fixed<X,Y>)
 #define AP_FIXED_SIZE 14
 #define AP_FIXED_DEC 11
+typedef ap_uint<16> val_t;
 typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
 
 #define TotalN 3
 #define NEVENT 1
 
-void MET_ref( ap_int<16> allPT_ref[TotalN], ap_int<16> &missPT_ref, ap_int<16> allPhi_ref[TotalN], ap_int<16> &missPhi_ref );
-void MET_hw(  ap_int<16> allPT_hw[TotalN], ap_int<16> &missPT_hw, ap_int<16> allPhi_hw[TotalN], ap_int<16> &missPhi_hw );
+//void MET_ref( ap_int<16> allPT_ref[TotalN], ap_int<16> &missPT_ref, ap_int<10> allPhi_ref[TotalN], ap_int<10> &missPhi_ref );
+//void MET_hw(  ap_int<16> allPT_hw[TotalN], ap_int<16> &missPT_hw, ap_int<10> allPhi_hw[TotalN], ap_int<10> &missPhi_hw );
 
+void MET_ref( pt_t allPT_ref[TotalN], pt_t &missPT_ref, etaphi_t allPhi_ref[TotalN], etaphi_t &missPhi_ref );
+void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw );
+
+//result_t divi;
 
 // *************************************************
 //       Division
 // *************************************************
+/**/ 
 template<class data_T, int N_TABLE_NUM, int N_TABLE_DEN>
 void init_division_table(data_T table_out[N_TABLE_NUM*N_TABLE_DEN]) {
     // Implement division lookup
@@ -37,8 +45,8 @@ void init_division_table(data_T table_out[N_TABLE_NUM*N_TABLE_DEN]) {
     }
     return;
 }
-
-
+/**/
+/**/
 template<class data_T, class res_T, int TABLE_SIZE_NUM, int TABLE_SIZE_DEN>
 void division(data_T &data_num, data_T &data_den, res_T &res) {
     // Initialize the lookup table
@@ -63,7 +71,7 @@ void division(data_T &data_num, data_T &data_den, res_T &res) {
 // Default table size provided here:
 template<class data_T, class res_T>
 void division(data_T &data_num, data_T &data_den, res_T &res) { 
-    /* Get the division value from the LUT */
+    // Get the division value from the LUT 
     if(data_den==0) {
         std::cout << "WARNING::division::data_den==0" << std::endl;
         return;
@@ -71,5 +79,7 @@ void division(data_T &data_num, data_T &data_den, res_T &res) {
     division<data_T, res_T, N_TABLE_SIZE_NUM, N_TABLE_SIZE_DEN>(data_num, data_den, res); 
     return;
 }
+
+/**/
 
 #endif
