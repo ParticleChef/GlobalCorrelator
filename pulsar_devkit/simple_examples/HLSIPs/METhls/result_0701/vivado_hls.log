@@ -1,0 +1,38 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /opt/local/Xilinx/Vivado/2018.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/opt/local/Xilinx/Vivado/2018.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'jhong' on host 'correlator2.fnal.gov' (Linux_x86_64 version 3.10.0-957.10.1.el7.x86_64) on Mon Jul 01 21:55:24 CDT 2019
+INFO: [HLS 200-10] On os "Scientific Linux release 7.6 (Nitrogen)"
+INFO: [HLS 200-10] In directory '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls'
+INFO: [HLS 200-10] Opening and resetting project '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met'.
+INFO: [HLS 200-10] Adding design file 'MET.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_test.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_ref.cpp' to the project
+INFO: [HLS 200-10] Opening and resetting solution '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met/solution_test'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xc7vx690tffg1927-2'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../MET_ref.cpp in debug mode
+   Compiling ../../../../MET_test.cpp in debug mode
+   Compiling ../../../../MET.cpp in debug mode
+   Generating csim.exe
+pt  --> 2, 4
+phi --> 1, 2
+@E Simulation failed.
+ERROR: [SIM 211-100] CSim failed with errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+4
+    while executing
+"source [lindex $::argv 1] "
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel \#0 { source [lindex $::argv 1] } "
+
+INFO: [Common 17-206] Exiting vivado_hls at Mon Jul  1 21:55:27 2019...
