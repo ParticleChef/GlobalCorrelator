@@ -1,3 +1,3 @@
-Compare the result of ref and hw. -> in log file.
-Without lookup table.
-
+07 01
+With acos lookup table.
+sinf, cosf, sqrtf are changed.
