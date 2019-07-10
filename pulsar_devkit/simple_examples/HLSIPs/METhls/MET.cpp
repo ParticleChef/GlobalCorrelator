@@ -5,8 +5,8 @@
 #include <cstdio>
 #endif
 
-#define TotalN 3
-#define NEVENT 1
+//#define TotalN 3
+//#define NEVENT 1
 
 void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw ){
 //void MET_hw( ap_int<16> allPT[TotalN], ap_int<16> &missPT, ap_int<10> allPhi[TotalN], ap_int<10> &missPhi ) {
@@ -17,28 +17,42 @@ void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[Total
 	int i;
 	int j;
 
-	etaphi_t totalX = 0;
-	etaphi_t totalY = 0;
+	double totalX = 0;
+	double totalY = 0;
+	double co = 0;
+	double si = 0;
+	pt_t pt = 0;
+
+	std::cout<<"hw  : beform loop phi: "<<allPhi_hw [0]<<", "<<allPhi_hw [1]<<std::endl;
+	std::cout<<"hw  : beform loop pt: "<<allPT_hw [0]<<", "<<allPT_hw [1]<<std::endl;
 
 	for( i = 0; i < TotalN; i++){
-		totalX = totalX -allPT_hw[i]*cosf(allPhi_hw[i]);
-		totalY = totalY -allPT_hw[i]*sinf(allPhi_hw[i]);
+		Cos<etaphi_t,double>(allPhi_hw[i],co);
+		Sin<etaphi_t,double>(allPhi_hw[i],si);
+		std::cout<<"hw  : sin,cos: "<<co<<", "<<si<<std::endl;
+		totalX = totalX -allPT_hw[i]*co;//s(allPhi_hw[i]);
+		totalY = totalY -allPT_hw[i]*si;//n(allPhi_hw[i]);
+		std::cout<<"hw  : totalX,Y: "<<totalX<<", "<<totalY<<std::endl;
 	}
 
-//	val_t num = totalX;
-//	val_t den = missPT;
-//	result_t res;
-//	res = 0;
+	Sqsqrt<double, pt_t>(totalX, totalY, pt);
+	std::cout<<"hw  : calculated pt: "<<pt<<std::endl;
+	missPT_hw = pt; // sqrt( totalX*totalX + totalY*totalY );
+	std::cout<<"hw  : missPT_hw  = pt; "<<missPT_hw <<std::endl;
 
-//	division<ap_int<16>, result_t>(totalX, missPT, divi);
-//	division(num, den, divi);
-//	division<val_t, result_t>(num, den, res);
+	double Res = 0;
+//	double Res = totalX /missPT_hw;;
+//
+	if( missPT_hw == 0 ) Res = 1E+10; 
+	else Res = totalX/missPT_hw;
 
-//	missPT = sqrt( totalX*totalX + totalY*totalY );
-//	missPhi = acos( totalX / missPT );
-//	missPhi = acos( res );
+	std::cout<<"hw  : Res = totalX/missPT: "<<Res<<std::endl;
+//	division<etaphi_t, etaphi_t,N_TABLE_SIZE_NUM,N_TABLE_SIZE_DEN>(totalX, missPT_hw, Res);
 
-	missPT_hw = sqrtf( totalX*totalX + totalY*totalY );
-	missPhi_hw = acosf( totalX / missPT_hw );
+	double res_phi = 0;
+	acos<double, double, 1024>(Res, res_phi );
+	missPhi_hw = res_phi*(180/3.14);
+	std::cout<<"hw  : acos(x/PT) Res = "<<missPhi_hw <<std::endl;
+//	missPhi_hw = acos( totalX / missPT_hw );
 
 }

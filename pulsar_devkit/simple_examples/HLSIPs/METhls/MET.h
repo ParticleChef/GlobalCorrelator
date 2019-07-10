@@ -7,17 +7,23 @@
 // size of the LUT
 #define N_TABLE_SIZE_NUM 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
 #define N_TABLE_SIZE_DEN 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
+#define N_TABLE_SIZE 1024
+#define SINE_RANGE 4
 
 typedef ap_int<16> pt_t;
-typedef ap_int<10>  etaphi_t;
+typedef ap_int<10> etaphi_t;
 
 // Type used for LUT (ap_fixed<X,Y>)
-#define AP_FIXED_SIZE 14
-#define AP_FIXED_DEC 11
+#define AP_FIXED_SIZE 16
+#define AP_FIXED_DEC 3
 typedef ap_uint<16> val_t;
-typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
+typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> fixed10_t;
+typedef ap_fixed<16,3> fixed3_t;
 
-#define TotalN 3
+//typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> pt_t;
+//typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> etaphi_t;
+
+#define TotalN 2
 #define NEVENT 1
 
 //void MET_ref( ap_int<16> allPT_ref[TotalN], ap_int<16> &missPT_ref, ap_int<10> allPhi_ref[TotalN], ap_int<10> &missPhi_ref );
@@ -25,8 +31,6 @@ typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
 
 void MET_ref( pt_t allPT_ref[TotalN], pt_t &missPT_ref, etaphi_t allPhi_ref[TotalN], etaphi_t &missPhi_ref );
 void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw );
-
-//result_t divi;
 
 // *************************************************
 //       Division
@@ -45,8 +49,8 @@ void init_division_table(data_T table_out[N_TABLE_NUM*N_TABLE_DEN]) {
     }
     return;
 }
-/**/
-/**/
+
+
 template<class data_T, class res_T, int TABLE_SIZE_NUM, int TABLE_SIZE_DEN>
 void division(data_T &data_num, data_T &data_den, res_T &res) {
     // Initialize the lookup table
@@ -78,6 +82,91 @@ void division(data_T &data_num, data_T &data_den, res_T &res) {
     }
     division<data_T, res_T, N_TABLE_SIZE_NUM, N_TABLE_SIZE_DEN>(data_num, data_den, res); 
     return;
+}
+
+/**/
+/**/
+// *************************************************
+//       Sine
+// *************************************************
+template<class data_T, int N_TABLE>
+void init_acos_table(data_T table_out[N_TABLE]) {
+	//	Implement tanh lookup
+	for (int ii = 0; ii < N_TABLE; ii++) {
+		// Original: 
+		// First, convert from table index to X-value (signed 8-bit, range -4 to +4)
+		//float in_val = 2*4.0*(ii-float(N_TABLE)/2.0)/float(N_TABLE);
+
+		// Convert from table index to X-value (unsigned 4-bit, range 0 to +4)
+		float in_val = (SINE_RANGE)*((N_TABLE-1)-ii)/float(N_TABLE);
+
+		// Next, compute lookup table function
+		data_T real_val = acos(in_val);
+		//std::cout << "Tanh:  Lookup table Index: " <<  ii<< " In Value: " << in_val << " Result: " << real_val << std::endl;
+		table_out[ii] = real_val;
+	}
+	return;
+}
+template<class data_T, class res_T, int TABLE_SIZE>//=1024>
+void acos(data_T &data, res_T &res) {
+	// Initialize the lookup table
+	res_T acos_table[TABLE_SIZE];
+	init_acos_table<res_T, TABLE_SIZE>(acos_table);
+
+	// Index into the lookup table based on data
+	data_T datareg;
+	int index;
+
+#pragma HLS PIPELINE
+	// Original:
+	//data_round = data.read()*TABLE_SIZE/8; // original 8-bit
+	//index = data_round + 4*TABLE_SIZE/8;   // original 8-bit (makes value positive)
+
+	index = (1-data/SINE_RANGE)*TABLE_SIZE;
+
+	if (index < 0) index = 0;
+	if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
+	res = acos_table[index];
+
+	return;
+}
+
+// Default table size provided here:
+template<class data_T, class res_T>
+void acos(data_T &data, res_T &res) { 
+	// Get the tanh value from the LUT 
+	if (data < 0) {
+		data = -1*data;
+		acos<data_T, res_T, N_TABLE_SIZE>(data, res); 
+		res  = -1*res;
+	}
+	else{
+		acos<data_T, res_T, N_TABLE_SIZE>(data, res); 
+	}
+	return;
+}
+
+template<typename T_co, typename rT_co>
+void Cos(T_co &Inp, rT_co &Out){
+	double Input_co = 0.;
+	Input_co = Inp * (M_PI / 180);
+	std::cout<<"Input_cos: "<<Inp<<std::endl;
+	Out = cos(Input_co);
+}
+
+template<typename T_si, typename rT_si>
+void Sin(T_si &Inp, rT_si &Out){
+	double Input_si = 0.;
+	Input_si = Inp * (M_PI / 180);
+	std::cout<<"Input_sin: "<<Input_si<<std::endl;
+	Out = sin(Input_si);
+}
+
+template<typename in_T, typename ou_T>
+void Sqsqrt(in_T &Inp1, in_T &Inp2, ou_T &Out){
+	double Out_res = 0.;
+	Out_res = Inp1*Inp1 + Inp2*Inp2;
+	Out = sqrt(Out_res);
 }
 
 /**/
