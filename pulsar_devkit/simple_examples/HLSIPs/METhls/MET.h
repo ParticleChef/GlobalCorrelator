@@ -15,10 +15,10 @@ typedef ap_int<10> etaphi_t;
 
 // Type used for LUT (ap_fixed<X,Y>)
 #define AP_FIXED_SIZE 16
-#define AP_FIXED_DEC 3
-typedef ap_uint<16> val_t;
+#define AP_FIXED_DEC 10
+//typedef ap_uint<16> val_t;
 typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> fixed10_t;
-typedef ap_fixed<16,3> fixed3_t;
+typedef ap_fixed<16,5> fixed5_t;
 
 //typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> pt_t;
 //typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> etaphi_t;
@@ -29,8 +29,8 @@ typedef ap_fixed<16,3> fixed3_t;
 //void MET_ref( ap_int<16> allPT_ref[TotalN], ap_int<16> &missPT_ref, ap_int<10> allPhi_ref[TotalN], ap_int<10> &missPhi_ref );
 //void MET_hw(  ap_int<16> allPT_hw[TotalN], ap_int<16> &missPT_hw, ap_int<10> allPhi_hw[TotalN], ap_int<10> &missPhi_hw );
 
-void MET_ref( pt_t allPT_ref[TotalN], pt_t &missPT_ref, etaphi_t allPhi_ref[TotalN], etaphi_t &missPhi_ref );
-void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw );
+void MET_ref( pt_t allPT_ref[TotalN], pt_t &missPT_ref, etaphi_t allPhi_ref[TotalN], fixed10_t &missPhi_ref );
+void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  fixed10_t &missPhi_hw );
 
 // *************************************************
 //       Division
@@ -49,7 +49,6 @@ void init_division_table(data_T table_out[N_TABLE_NUM*N_TABLE_DEN]) {
     }
     return;
 }
-
 
 template<class data_T, class res_T, int TABLE_SIZE_NUM, int TABLE_SIZE_DEN>
 void division(data_T &data_num, data_T &data_den, res_T &res) {
@@ -83,11 +82,10 @@ void division(data_T &data_num, data_T &data_den, res_T &res) {
     division<data_T, res_T, N_TABLE_SIZE_NUM, N_TABLE_SIZE_DEN>(data_num, data_den, res); 
     return;
 }
-
 /**/
 /**/
 // *************************************************
-//       Sine
+//       Acosine
 // *************************************************
 template<class data_T, int N_TABLE>
 void init_acos_table(data_T table_out[N_TABLE]) {
@@ -150,7 +148,7 @@ template<typename T_co, typename rT_co>
 void Cos(T_co &Inp, rT_co &Out){
 	double Input_co = 0.;
 	Input_co = Inp * (M_PI / 180);
-	std::cout<<"Input_cos: "<<Inp<<std::endl;
+	std::cout<<"Input_cos: "<<Input_co<<std::endl;
 	Out = cos(Input_co);
 }
 
@@ -166,7 +164,7 @@ template<typename in_T, typename ou_T>
 void Sqsqrt(in_T &Inp1, in_T &Inp2, ou_T &Out){
 	double Out_res = 0.;
 	Out_res = Inp1*Inp1 + Inp2*Inp2;
-	Out = sqrt(Out_res);
+	Out = round( sqrt(Out_res));
 }
 
 /**/

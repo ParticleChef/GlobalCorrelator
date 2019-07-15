@@ -12,12 +12,12 @@ int main() {
 	pt_t allPT_ref[TotalN];
 	pt_t missPT_ref;
 	etaphi_t allPhi_ref[TotalN];
-	etaphi_t missPhi_ref;
+	fixed10_t missPhi_ref;
 
 	pt_t allPT_hw[TotalN];
 	pt_t missPT_hw;
 	etaphi_t allPhi_hw[TotalN];
-	etaphi_t missPhi_hw;
+	fixed10_t missPhi_hw;
 
 	for (int test = 0; test < NEVENT; ++test) {
 
@@ -25,16 +25,16 @@ int main() {
 		allPT_hw[1] = 4+test;
 //		allPT_hw[2] = -8+test;
 
-		allPhi_hw[0] = 45+test;
-		allPhi_hw[1] = 45+test;
+		allPhi_hw[0] = -90+test;
+		allPhi_hw[1] = 90+test;
 //		allPhi_hw[2] = 0.6+test;
 
 		allPT_ref[0] = 4+test;
 		allPT_ref[1] = 4+test;
 //		allPT_ref[2] = -8+test;
 
-		allPhi_ref[0] = 45+test;
-		allPhi_ref[1] = 45+test;
+		allPhi_ref[0] = -90+test;
+		allPhi_ref[1] = 90+test;
 //		allPhi_ref[2] = 0.6+test;
 
 //		printf("test pt --> %d, %d\n",  allPT_ref[0],  allPT_ref[1] );// int(allPT_ref[0]),  int(allPT_ref[1]) );
