@@ -1,0 +1,76 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /opt/local/Xilinx/Vivado/2018.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/opt/local/Xilinx/Vivado/2018.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'jhong' on host 'correlator2.fnal.gov' (Linux_x86_64 version 3.10.0-957.10.1.el7.x86_64) on Wed Jul 17 17:53:34 CDT 2019
+INFO: [HLS 200-10] On os "Scientific Linux release 7.6 (Nitrogen)"
+INFO: [HLS 200-10] In directory '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls'
+INFO: [HLS 200-10] Opening and resetting project '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met'.
+INFO: [HLS 200-10] Adding design file 'MET.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_test.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_ref.cpp' to the project
+INFO: [HLS 200-10] Opening and resetting solution '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met/solution_test'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xc7vx690tffg1927-2'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../MET_ref.cpp in debug mode
+   Compiling ../../../../MET_test.cpp in debug mode
+   Compiling ../../../../MET.cpp in debug mode
+   Generating csim.exe
+test: pt  --> 1, 4, 4
+test: phi --> 0, 90, -135
+ref: pt  --> 1, 4, 4
+ref: phi --> 0, 90, -135
+Input_cos: 0
+Input_sin: 0
+ref : sin,cos: 1, 0
+ref : totalX,Y: -1, 0
+Input_cos: 1.5708
+Input_sin: 1.5708
+ref : sin,cos: 6.12323e-17, 1
+ref : totalX,Y: -1, -4
+Input_cos: -2.35619
+Input_sin: -2.35619
+ref : sin,cos: -0.707107, -0.707107
+ref : totalX,Y: 1.82843, -1.17157
+ref : calculated pt: 2.17157
+ref : missPT_ref = pt; 2.17157
+ref : Res = totalX/missPT: 0.841983
+ref : acos(x/PT) missPhi = 32.6665
+test: ref process end
+hw  : pt  --> 1, 4, 4
+hw  : phi --> 0, 90, -135
+Input_cos: 0
+Input_sin: 0
+hw  : sin,cos: 1, 0
+hw  : totalX,Y: -1, 0
+Input_cos: 1.5708
+Input_sin: 1.5708
+hw  : sin,cos: 0, 1
+hw  : totalX,Y: -1, -4
+Input_cos: -2.35619
+Input_sin: -2.35619
+hw  : sin,cos: -0.70752, -0.70752
+hw  : totalX,Y: 1.82813, -1.17188
+hw  : calculated pt: 2.15625
+hw  : missPT_hw  = pt; 2.15625
+Res = totalX/missPT_hw : 0.84375 = 1.82813 / 2.15625
+inded = : 916
+acos_table[index] = 0.580958
+Res = 0.84375, result_phi = 0.580958
+hw  : Res = totalX/missPT: 0.84375
+hw  : acos(x/PT) Res = 33.2969
+test: hw process end
+test: MET_ref = 2.17157
+test: Phi_ref = 32.6665
+test: MET_hw = 2.15625
+test: Phi_hw = 33.2969
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [Common 17-206] Exiting vivado_hls at Wed Jul 17 17:53:39 2019...
