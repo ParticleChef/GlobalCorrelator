@@ -87,17 +87,8 @@ void acos(data_T &data, res_T &res) {
 // Default table size provided here:
 template<class data_T, class res_T>
 void acos(data_T &data, res_T &res) { 
-	// Get the tanh value from the LUT 
-	//if (data < 0) {
-		//data = -1*data;  // original
-	//	data = data + 1;
+	// Get the value from the LUT 
 		acos<data_T, res_T, N_TABLE_SIZE>(data, res); 
-	//	res  = -1*res;
-	//}
-	//else{
-	//	data = data + 1;
-	//	acos<data_T, res_T, N_TABLE_SIZE>(data, res); 
-	//}//
 	return;
 }
 

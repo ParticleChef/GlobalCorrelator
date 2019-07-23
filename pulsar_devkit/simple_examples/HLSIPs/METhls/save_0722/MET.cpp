@@ -55,7 +55,7 @@ void MET_hw(  pt_t allPT_hw[TotalN], fixed10_t &missPT_hw,  etaphi_t allPhi_hw[T
 		res_phi = 0; 
 	}
 	else{
-		divi = float( totalX/missPT_hw );
+		divi = totalX/missPT_hw; // float( totalX/missPT_hw );
 		if(totalY < 0){acos<float, float>(divi, res_phi); res_phi = -1*res_phi;}
 		if(totalY >= 0) acos<float, float>(divi, res_phi);
 	}

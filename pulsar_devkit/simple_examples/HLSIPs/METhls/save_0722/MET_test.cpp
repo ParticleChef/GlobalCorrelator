@@ -56,9 +56,7 @@ int main() {
 
 			allPT_ref[nn] = input_pt[nn];
 			allPhi_ref[nn] = input_ph[nn];
-
 		}
-
 //		printf("test pt --> %d, %d\n",  allPT_ref[0],  allPT_ref[1] );// int(allPT_ref[0]),  int(allPT_ref[1]) );
 //		printf("test phi --> %d, %d\n", allPhi_ref[0], allPhi_ref[1] );//int(allPhi_ref[0]), int(allPhi_ref[1]) );
 
@@ -96,6 +94,8 @@ int main() {
 
 		double wrt_pT = missPT_ref - (double)missPT_hw;
 		double wrt_ph = missPhi_ref - (double)missPhi_hw;
+		if( wrt_ph > 180 ) wrt_ph = wrt_ph - 2*180;
+		if( wrt_ph <= -180)wrt_ph = wrt_ph + 2*180;
 		fprintf(METout, "%f\n", wrt_pT);
 		fprintf(PHIout, "%f\n", wrt_ph);
 		fprintf(METout_, "%f\n", wrt_pT/missPT_ref);
