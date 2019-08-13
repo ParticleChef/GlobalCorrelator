@@ -38,10 +38,6 @@ float rand_input(long *idum)
 #undef MASK
 
 int main() {
-	//std::ofstream METout;
-	//std::ofstream PHIout;
-	//METout.open("./MET_out.txt");
-	//PHIout.open("./PHI_out.txt");
 
 	FILE *METout;
 	FILE *PHIout;
@@ -49,7 +45,7 @@ int main() {
 	FILE *PHIout_;
 	FILE *METrefout;
 	FILE *PHIrefout;
-	FILE *RANDdist;
+	//FILE *RANDdist;
 	FILE *PTin;
 	FILE *PHIin;
 	METout=fopen("MET_out.txt","w");
@@ -58,7 +54,7 @@ int main() {
 	PHIout_=fopen("PHI_out_.txt","w");
 	METrefout=fopen("METref_out.txt","w");
 	PHIrefout=fopen("PHIref_out.txt","w");
-	RANDdist=fopen("RAND_dist.txt","w");
+	//RANDdist=fopen("RAND_dist.txt","w");
 	PTin=fopen("PT_in.txt","w");
 	PHIin=fopen("PHI_in.txt","w");
 
@@ -75,13 +71,13 @@ int main() {
 	double input_pt[TotalN] = {0}; // {10, 12};
 	double input_ph[TotalN] = {0}; // {85, -25};
 
-	long n = 2;
+	long n = 3;
 	srand((unsigned int)time(NULL));
 	for (int test = 0; test < NEVENT; ++test) {
 		std::cout<<"==== NEVENT "<<test+1<<" ===="<<std::endl;
 
 		for(int nn = 0; nn < TotalN; ++nn){
-			fprintf(RANDdist, "%f\n", rand_input(&n));
+			//fprintf(RANDdist, "%f\n", rand_input(&n));
 			//input_pt[nn] = rand()%291 + 10; //10 ~ 300
 			//input_ph[nn] = rand()%360 - 180; // -180 ~ 180
 			input_pt[nn] = rand_input(&n)*290.+10.;//%291 + 10; //10 ~ 300
@@ -157,7 +153,7 @@ int main() {
 	fclose(PHIout_);
 	fclose(METrefout);
 	fclose(PHIrefout);
-	fclose(RANDdist);
+	//fclose(RANDdist);
 	fclose(PTin);
 	fclose(PHIin);
 

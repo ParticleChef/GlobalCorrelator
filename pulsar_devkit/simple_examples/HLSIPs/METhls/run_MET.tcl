@@ -1,19 +1,19 @@
 # open the project, don't forget to reset
-open_project -reset met_testf
+open_project -reset met
 set_top MET_hw
 add_files MET.cpp
 add_files -tb MET_test.cpp 
 add_files -tb MET_ref.cpp
 
 # reset the solution
-open_solution -reset "solution1"
+open_solution -reset "solution_test"
 # part options:
 #	xcku9p-ffve900-2-i-EVAL
 #	xc7vx690tffg1927-2
 #	xcku5p-sfvb784-3-e
 #	xcku115-flvf1924-2-i
-#	xcvu9p-flga2104-2l-e
-set_part {xc7vx690tffg1927-2}
+#set_part {xc7vx690tffg1927-2}
+set_part {xcvu9p-flga2104-2l-e}
 create_clock -period 5 -name default
 
 # do stuff
