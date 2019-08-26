@@ -1,0 +1,117 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /data/Xilinx/Vivado/Vivado/2018.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/data/Xilinx/Vivado/Vivado/2018.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'jhong' on host 'correlator2.fnal.gov' (Linux_x86_64 version 3.10.0-957.21.3.el7.x86_64) on Mon Aug 26 17:15:10 CDT 2019
+INFO: [HLS 200-10] On os "Scientific Linux release 7.6 (Nitrogen)"
+INFO: [HLS 200-10] In directory '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_cos'
+INFO: [HLS 200-10] Opening and resetting project '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_cos/met'.
+INFO: [HLS 200-10] Adding design file 'COS.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'COS_test.cpp' to the project
+INFO: [HLS 200-10] Opening and resetting solution '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_cos/met/cos_test'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xcvu9p-flga2104-2l-e'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../COS_test.cpp in debug mode
+   Compiling ../../../../COS.cpp in debug mode
+   Generating csim.exe
+==== NEVENT 1 ====
+test: phi --> 85, -25, 150, 60, -45, 33, 100, -178, 3, 61, 
+test: phir--> 1.47339, -0.43335, 2.6001, 1.04004, -0.780029, 0.572021, 1.7334, -3.08545, 0.052002, 1.05737, 
+data = 1.47266
+cos_table[752] = cos(1.47266) =0.09375,0.09375
+data = -0.433594
+cos_table[441] = cos(-0.433594) =0.90625,0.90625
+data = 2.59766
+cos_table[935] = cos(2.59766) =-0.859375,-0.859375
+data = 1.03906
+cos_table[681] = cos(1.03906) =0.507813,0.507813
+data = -0.78125
+cos_table[384] = cos(-0.78125) =0.703125,0.703125
+data = 0.570313
+cos_table[604] = cos(0.570313) =0.84375,0.84375
+data = 1.73047
+cos_table[794] = cos(1.73047) =-0.164063,-0.164063
+data = -3.08594
+cos_table[9] = cos(-3.08594) =-1,-1
+data = 0.0507813
+cos_table[520] = cos(0.0507813) =0.992188,0.992188
+data = 1.05469
+cos_table[683] = cos(1.05469) =0.492188,0.492188
+test: hw process end
+hw : out_phi = 0.09375, 0.90625, -0.859375, 0.507813, 0.703125, 0.84375, -0.164063, -1, 0.992188, 0.492188, 
+ref: out_phi = 0.0874345, 0.906343, -0.865778, 0.500171, 0.707212, 0.83873, -0.173324, -0.99937, 0.99863, 0.484985, 
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-10] Analyzing design file 'COS.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 13958 ; free virtual = 147354
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 13958 ; free virtual = 147354
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 658.168 ; gain = 202.355 ; free physical = 13794 ; free virtual = 147212
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 719.578 ; gain = 263.766 ; free physical = 13743 ; free virtual = 147169
+INFO: [XFORM 203-502] Unrolling all loops for pipelining in function 'Cos<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' (./COS.h:57:37).
+INFO: [XFORM 203-501] Unrolling loop 'Loop-1' (./COS.h:59) in function 'Cos<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' completely.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (./COS.h:48:15) to (./COS.h:70:1) in function 'Cos<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>'... converting 21 basic blocks.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 859.941 ; gain = 404.129 ; free physical = 13629 ; free virtual = 147066
+WARNING: [XFORM 203-631] Renaming function 'Cos<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' to 'Cos' (./COS.h:57:1)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 863.770 ; gain = 407.957 ; free physical = 13598 ; free virtual = 147036
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'COS_hw' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Cos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'Cos'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('data_V_load_2', ./COS.h:60) on array 'data_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'data_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 5, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 23.21 seconds; current allocated memory: 344.367 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.25 seconds; current allocated memory: 345.988 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'COS_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'COS_hw'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 5, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.33 seconds; current allocated memory: 346.256 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.09 seconds; current allocated memory: 346.349 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Cos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'COS_hw_mul_mul_9ns_18s_26_1_1' to 'COS_hw_mul_mul_9nbkb' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'COS_hw_mul_mul_9nbkb': 10 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Cos'.
+INFO: [HLS 200-111]  Elapsed time: 0.29 seconds; current allocated memory: 349.113 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'COS_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'COS_hw/in_phi_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'COS_hw/out_phi_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'COS_hw' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'COS_hw'.
+INFO: [HLS 200-111]  Elapsed time: 0.86 seconds; current allocated memory: 355.835 MB.
+INFO: [RTMG 210-279] Implementing memory 'Cos_cos_table1_rom' using auto ROMs.
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 863.770 ; gain = 407.957 ; free physical = 13575 ; free virtual = 147019
+INFO: [SYSC 207-301] Generating SystemC RTL for COS_hw.
+INFO: [VHDL 208-304] Generating VHDL RTL for COS_hw.
+INFO: [VLOG 209-307] Generating Verilog RTL for COS_hw.
+INFO: [HLS 200-112] Total elapsed time: 25.84 seconds; peak allocated memory: 355.835 MB.
+INFO: [Common 17-206] Exiting vivado_hls at Mon Aug 26 17:15:36 2019...

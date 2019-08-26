@@ -1,0 +1,117 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /data/Xilinx/Vivado/Vivado/2018.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/data/Xilinx/Vivado/Vivado/2018.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'jhong' on host 'correlator2.fnal.gov' (Linux_x86_64 version 3.10.0-957.21.3.el7.x86_64) on Mon Aug 26 17:25:08 CDT 2019
+INFO: [HLS 200-10] On os "Scientific Linux release 7.6 (Nitrogen)"
+INFO: [HLS 200-10] In directory '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_sin'
+INFO: [HLS 200-10] Creating and opening project '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_sin/met'.
+INFO: [HLS 200-10] Adding design file 'SIN.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'SIN_test.cpp' to the project
+INFO: [HLS 200-10] Creating and opening solution '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/simple_sin/met/sin_test'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xcvu9p-flga2104-2l-e'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../SIN_test.cpp in debug mode
+   Compiling ../../../../SIN.cpp in debug mode
+   Generating csim.exe
+==== NEVENT 1 ====
+test: phi --> 85, -25, 150, 60, -45, 33, 100, -178, 3, 61, 
+test: phir--> 1.47339, -0.43335, 2.6001, 1.04004, -0.780029, 0.572021, 1.7334, -3.08545, 0.052002, 1.05737, 
+data = 1.47266
+sin_table[752] = sin(1.47266) =0.992188,0.992188
+data = -0.433594
+sin_table[441] = sin(-0.433594) =-0.429688,-0.429688
+data = 2.59766
+sin_table[935] = sin(2.59766) =0.515625,0.515625
+data = 1.03906
+sin_table[681] = sin(1.03906) =0.859375,0.859375
+data = -0.78125
+sin_table[384] = sin(-0.78125) =-0.710938,-0.710938
+data = 0.570313
+sin_table[604] = sin(0.570313) =0.53125,0.53125
+data = 1.73047
+sin_table[794] = sin(1.73047) =0.984375,0.984375
+data = -3.08594
+sin_table[9] = sin(-3.08594) =-0.0625,-0.0625
+data = 0.0507813
+sin_table[520] = sin(0.0507813) =0.046875,0.046875
+data = 1.05469
+sin_table[683] = sin(1.05469) =0.859375,0.859375
+test: hw process end
+hw : out_phi = 0.992188, -0.429688, 0.515625, 0.859375, -0.710938, 0.53125, 0.984375, -0.0625, 0.046875, 0.859375, 
+ref: out_phi = 0.99617, -0.422544, 0.500428, 0.865927, -0.707002, 0.544548, 0.984865, -0.0354852, 0.0523261, 0.874522, 
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-10] Analyzing design file 'SIN.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 13872 ; free virtual = 147339
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 13872 ; free virtual = 147339
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 658.168 ; gain = 202.355 ; free physical = 13708 ; free virtual = 147197
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 719.812 ; gain = 264.000 ; free physical = 13658 ; free virtual = 147155
+INFO: [XFORM 203-502] Unrolling all loops for pipelining in function 'Sin<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' (./SIN.h:57:37).
+INFO: [XFORM 203-501] Unrolling loop 'Loop-1' (./SIN.h:59) in function 'Sin<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' completely.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (./SIN.h:48:15) to (./SIN.h:70:1) in function 'Sin<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>'... converting 21 basic blocks.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 859.941 ; gain = 404.129 ; free physical = 13544 ; free virtual = 147052
+WARNING: [XFORM 203-631] Renaming function 'Sin<ap_fixed<18, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' to 'Sin' (./SIN.h:57:1)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 863.770 ; gain = 407.957 ; free physical = 13522 ; free virtual = 147032
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'SIN_hw' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Sin' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'Sin'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('data_V_load_2', ./SIN.h:60) on array 'data_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'data_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 5, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 23.75 seconds; current allocated memory: 344.607 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.29 seconds; current allocated memory: 346.220 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'SIN_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'SIN_hw'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 5, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 346.473 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.09 seconds; current allocated memory: 346.566 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Sin' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SIN_hw_mul_mul_9ns_18s_26_1_1' to 'SIN_hw_mul_mul_9nbkb' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SIN_hw_mul_mul_9nbkb': 10 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Sin'.
+INFO: [HLS 200-111]  Elapsed time: 0.27 seconds; current allocated memory: 349.359 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'SIN_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'SIN_hw/in_phi_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SIN_hw/out_phi_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'SIN_hw' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'SIN_hw'.
+INFO: [HLS 200-111]  Elapsed time: 0.87 seconds; current allocated memory: 356.069 MB.
+INFO: [RTMG 210-279] Implementing memory 'Sin_sin_table1_rom' using auto ROMs.
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 863.770 ; gain = 407.957 ; free physical = 13501 ; free virtual = 147016
+INFO: [SYSC 207-301] Generating SystemC RTL for SIN_hw.
+INFO: [VHDL 208-304] Generating VHDL RTL for SIN_hw.
+INFO: [VLOG 209-307] Generating Verilog RTL for SIN_hw.
+INFO: [HLS 200-112] Total elapsed time: 26.35 seconds; peak allocated memory: 356.069 MB.
+INFO: [Common 17-206] Exiting vivado_hls at Mon Aug 26 17:25:35 2019...
