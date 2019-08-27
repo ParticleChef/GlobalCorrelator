@@ -6,57 +6,52 @@
 #endif
 
 
-void MET_hw(  pt_t allPT_hw[TotalN], fixed10_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  fixed10_t &missPhi_hw ){
-	#pragma HLS pipeline II = 2
-	#pragma HLS array_partition variable=allPT_hw complete // block factor=2
-	#pragma HLS array_partition variable=allPhi_hw complete // block factor=2
+void MET_hw(  pt_t allPT_hw[TotalN], pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw ){
+	#pragma HLS ARRAY_PARTITION variable=allPT_hw complete // block factor=2
+	#pragma HLS ARRAY_PARTITION variable=allPhi_hw complete // block factor=2
+	#pragma HLS PIPELINE 
 
 	int i;
 	int j;
 
 	fixedXY_t totalX = 0;
 	fixedXY_t totalY = 0;
-	fixed5_t co = 0;
-	fixed5_t si = 0;
-	fixed10_t pt = 0;
+	sincos_t co[TotalN] = {0};
+	sincos_t si[TotalN] = {0};
+	pt_t pt = 0;
 
-		//std::cout<<"hw  : pt  --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPT_hw[i]<<", "; std::cout<<allPT_hw[TotalN-1]<<std::endl;
-		//std::cout<<"hw  : phi --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPhi_hw[i]<<", "; std::cout<<allPhi_hw[TotalN-1]<<std::endl;
+#pragma HLS ARRAY_PARTITION variable=co complete
+#pragma HLS ARRAY_PARTITION variable=si complete
 
+	Cos<etaphi_t,sincos_t,activ_config>(allPhi_hw,co);
+	Sin<etaphi_t,sincos_t,activ_config>(allPhi_hw,si);
 	for( i = 0; i < TotalN; i++){
-		Cos<etaphi_t,fixed5_t>(allPhi_hw[i],co);
-		Sin<etaphi_t,fixed5_t>(allPhi_hw[i],si);
-		//std::cout<<"hw  : sin("<<allPhi_hw[i]<<") = "<<si<<", cos("<<allPhi_hw[i]<<") = "<<co<<std::endl;
-		totalX = totalX -allPT_hw[i]*co;
-		totalY = totalY -allPT_hw[i]*si;
-		//std::cout<<"hw  : "<<"("<<i<<") "<<"totalX,Y: "<<totalX<<", "<<totalY<<std::endl;
+		totalX = totalX -allPT_hw[i]*co[i];
+		totalY = totalY -allPT_hw[i]*si[i];//n(allPhi_hw[i]);
 	}
 
-	Sqsqrt<fixedXY_t, fixed10_t>(totalX, totalY, pt);
-	//std::cout<<"hw  : calculated MET: "<<pt<<std::endl;
+	Sqsqrt<fixedXY_t, pt_t>(totalX, totalY, pt);
+	std::cout<<"hw  : calculated MET: "<<pt<<std::endl;
 
 	missPT_hw = pt; 
 	//std::cout<<"hw  : missPT_hw  = pt; "<<missPT_hw <<std::endl;
 
-	float divi = 0;
-	float res_phi = 0;
-	float degr = 57.32;
+	temp_t divi = 0;
+	etaphi_t res_phi = 0;
+	ap_fixed<14,8> degr = 57.32;
 	if( missPT_hw == 0 ){ 
 		divi = 1E+10; 
 		res_phi = 0; 
 	}
 	else{
-		divi = totalX/missPT_hw;// float( totalX/missPT_hw );
-	std::cout<<"hw  : totalX/missPT = "<<divi<<std::endl;
-		if(totalY < 0){acos<float, float>(divi, res_phi); res_phi = -1*res_phi;}
-		if(totalY >= 0) acos<float, float>(divi, res_phi);
-		//std::cout<<"hw  : phi = "<<res_phi<<std::endl;
+		divi = totalX/missPT_hw;    
+		if(totalY < 0){acos<temp_t, etaphi_t>(divi, res_phi); res_phi = -1*res_phi;}
+		if(totalY >= 0) acos<temp_t, etaphi_t>(divi, res_phi);
 	}
 
 	std::cout<<"hw  : totalX/missPT = "<<divi<<std::endl;
 
-	missPhi_hw = res_phi*degr;//(180/3.14));
+	missPhi_hw = res_phi*degr;   //(180/3.14));
 	std::cout<<"hw  : acos(x/PT) = "<<missPhi_hw <<std::endl;
-
 
 }

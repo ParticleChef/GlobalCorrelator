@@ -5,32 +5,41 @@
 #include "ap_fixed.h"
 
 // size of the LUT
-#define N_TABLE_SIZE_NUM 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
-#define N_TABLE_SIZE_DEN 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
-#define N_TABLE_SIZE 500
+#define N_TABLE_SIZE 1024
 #define SINE_RANGE 2
 
-typedef ap_int<16> pt_t;
-typedef ap_int<10> etaphi_t;
+//typedef ap_int<16> pt_t;
+//typedef ap_int<10> etaphi_t;
 //typedef ap_fixed<16,10> pt_t;
 //typedef ap_fixed<16,10> etaphi_t;
 
-// Type used for LUT (ap_fixed<X,Y>)
+// Type define (ap_fixed<X,Y>)
+typedef ap_int<16> pt_t;
+typedef ap_fixed<18,9> etaphi_t;
+typedef ap_fixed<10,3> sincos_t;
+typedef ap_fixed<12,4> rad_t;
+
 typedef ap_fixed<16,12> fixed10_t;
 typedef ap_fixed<16,5> fixed5_t;
 typedef ap_fixed<24,13> fixedXY_t;
 
+typedef ap_fixed<18,5> temp_t;
 
-#define TotalN 10
+
+#define PI_VAL temp_t(3.1415)
+
+#define TotalN 15
 #define NEVENT 10000
 
-#define PI_VAL 3.1415
+struct activ_config{
+	static const unsigned n_in = 10;
+	static const unsigned table_size = 1024;
+	typedef ap_fixed<18,8> table_t;
+};
 
 void MET_ref( double allPT_ref[TotalN], double &missPT_ref, double allPhi_ref[TotalN], double &missPhi_ref );
-void MET_hw(  pt_t allPT_hw[TotalN],  fixed10_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  fixed10_t &missPhi_hw );
+void MET_hw(  pt_t allPT_hw[TotalN],  pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN],  etaphi_t &missPhi_hw );
 
-
-/**/
 // *************************************************
 //       Accosine
 // *************************************************
@@ -85,103 +94,199 @@ void acos(data_T &data, res_T &res) {
 // *************************************************
 //       Cosine tables
 // *************************************************
-template<class rT_co, int N_TABLE>
-void init_cos_table(rT_co table_out[N_TABLE]) {
+template<typename CONFIG_T, int N_TABLE>
+void init_cos_table(typename CONFIG_T::table_t table_out[N_TABLE]) {
 	int INDEX = 0;
-	//	Implement cos lookup
-	for (int ii = N_TABLE-1; ii > -1; ii--) {
+	//  Implement cos lookup
+	//for (int ii = N_TABLE-1; ii > -1; ii--) {
+	for (int ii = 0; ii < N_TABLE; ii++) {
 		// Convert from table index to X-value
-		float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/float(N_TABLE)) - PI_VAL;
+		//float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/N_TABLE) - PI_VAL; 
+		float in_val = 2*3.1415*(ii-N_TABLE/2.0)/N_TABLE; 
 
 		// Next, compute lookup table function
-		rT_co real_val = cos(in_val);
-		table_out[INDEX] =  real_val;
-		//std::cout<<"("<<INDEX<<") cos("<<in_val<<") = "<<real_val<<std::endl;
+		//typename CONFIG_T::table_t real_val = cos(in_val);
+		sincos_t real_val = cos(in_val);
+		//table_out[INDEX] =  real_val;
+		table_out[ii] =  real_val;
+		//std::cout<<"("<<ii<<") cos("<<in_val<<") = "<<real_val<<std::endl;
 		INDEX++;
-	}
-	return;
+	}   
 }
-template<class T_co, class rT_co, int TABLE_SIZE>
-void Cos(T_co &data, rT_co &res) {
+template<class T_co, class rT_co, typename CONFIG_T>
+void Cos(T_co data[CONFIG_T::n_in], rT_co res[CONFIG_T::n_in]) {
 	// Initialize the lookup table
-	rT_co cos_table[TABLE_SIZE];
-	init_cos_table<rT_co, TABLE_SIZE>(cos_table);
+	typename CONFIG_T::table_t cos_table[CONFIG_T::table_size];
+	init_cos_table<CONFIG_T, CONFIG_T::table_size>(cos_table);
+	//rT_co cos_table[CONFIG_T::table_size];
+	//init_cos_table<rT_co, CONFIG_T::table_size>(cos_table);
 
 	// Index into the lookup table based on data
 	int index;
-
 #pragma HLS PIPELINE
 
-	double data_rad = data * 0.0174; // (PI_VAL/180);
-	//std::cout<<"data = "<<data_rad<<std::endl;
-	index = ((data_rad+PI_VAL)/(2*PI_VAL))*TABLE_SIZE;
-	//std::cout<<"cos index = "<<index<<std::endl;
+	for(int ii=0; ii < CONFIG_T::n_in; ii++){
+		rad_t data_rad = data[ii] * temp_t(0.01745); // (PI_VAL/180);
+		std::cout<<"data = "<<data_rad<<std::endl;
+		index = ((data_rad+PI_VAL)/(2*PI_VAL))*CONFIG_T::table_size;
+		//std::cout<<"cos index = "<<index<<std::endl;
 
-	if (index < 0) index = 0;
-	if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
-	res = cos_table[index];
-	//std::cout<<"cos_table["<<index<<"] = "<<res<<std::endl;
-
-	return;
+		if (index < 0) index = 0;
+		if (index > CONFIG_T::table_size-1) index = CONFIG_T::table_size-1;
+		res[ii] = (rT_co) cos_table[index];
+		std::cout<<"cos_table["<<index<<"] = cos("<<data_rad<<") ="<<res[ii]<<","<<cos_table[index]<<std::endl;
+	}
 }
-
-template<class T_co, class rT_co>
-void Cos(T_co &Inp, rT_co &Out){
-
-	Cos<T_co, rT_co, N_TABLE_SIZE>(Inp, Out);
-	//std::cout<<"Input_cos: "<<Input_co<<std::endl;
-}
-
-// *************************************************
-//       Sine tables
-// *************************************************
-template<class rT_co, int N_TABLE>
-void init_sin_table(rT_co table_out[N_TABLE]) {
+//// *************************************************
+////       Sine tables
+//// *************************************************
+template<typename CONFIG_T, int N_TABLE>
+void init_sin_table(typename CONFIG_T::table_t table_out[N_TABLE]) {
 	int INDEX = 0;
-	//	Implement cos lookup
-	for (int ii = N_TABLE-1; ii > -1; ii--) {
+	//  Implement cos lookup
+	//for (int ii = N_TABLE-1; ii > -1; ii--) {
+	for (int ii = 0; ii < N_TABLE; ii++) {
 		// Convert from table index to X-value
-		float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/float(N_TABLE)) - PI_VAL;
+		//float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/N_TABLE) - PI_VAL; 
+		float in_val = 2*3.1415*(ii-N_TABLE/2.0)/N_TABLE;
 
 		// Next, compute lookup table function
-		rT_co real_val = sin(in_val);
-		table_out[INDEX] = real_val;
-		//std::cout<<"("<<INDEX<<") sin("<<in_val<<") = "<<real_val<<std::endl;
+		//typename CONFIG_T::table_t real_val = cos(in_val);
+		sincos_t real_val = sin(in_val);
+		//table_out[INDEX] =  real_val;
+		table_out[ii] =  real_val;
+		//std::cout<<"("<<ii<<") cos("<<in_val<<") = "<<real_val<<std::endl;
 		INDEX++;
-	}
-	return;
+	}   
 }
-template<class T_co, class rT_co, int TABLE_SIZE>
-void Sin(T_co &data, rT_co &res) {
+template<class T_co, class rT_co, typename CONFIG_T>
+void Sin(T_co data[CONFIG_T::n_in], rT_co res[CONFIG_T::n_in]) {
 	// Initialize the lookup table
-	rT_co sin_table[TABLE_SIZE];
-	init_sin_table<rT_co, TABLE_SIZE>(sin_table);
+	typename CONFIG_T::table_t sin_table[CONFIG_T::table_size];
+	init_sin_table<CONFIG_T, CONFIG_T::table_size>(sin_table);
+	//rT_co cos_table[CONFIG_T::table_size];
+	//init_cos_table<rT_co, CONFIG_T::table_size>(cos_table);
 
 	// Index into the lookup table based on data
 	int index;
-
 #pragma HLS PIPELINE
 
-	double data_rad = data * 0.0174; // (PI_VAL/180);
-	//std::cout<<"data = "<<data_rad<<std::endl;
-	index = ((data_rad+PI_VAL)/(2*PI_VAL))*TABLE_SIZE;
-	//std::cout<<"sin index = "<<index<<std::endl;
+	for(int ii=0; ii < CONFIG_T::n_in; ii++){
+		rad_t data_rad = data[ii] * temp_t(0.01745); // (PI_VAL/180);
+		std::cout<<"data = "<<data_rad<<std::endl;
+		index = ((data_rad+PI_VAL)/(2*PI_VAL))*CONFIG_T::table_size;
+		//std::cout<<"cos index = "<<index<<std::endl;
 
-	if (index < 0) index = 0;
-	if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
-	res = sin_table[index];
-	//std::cout<<"sin_table["<<index<<"] = "<<res<<std::endl;
-
-	return;
+		if (index < 0) index = 0;
+		if (index > CONFIG_T::table_size-1) index = CONFIG_T::table_size-1;
+		res[ii] = (rT_co) sin_table[index];
+		std::cout<<"sin_table["<<index<<"] = sin("<<data_rad<<") ="<<res[ii]<<","<<sin_table[index]<<std::endl;
+	}
 }
-
-template<class T_co, class rT_co>
-void Sin(T_co &Inp, rT_co &Out){
-
-	Sin<T_co, rT_co, N_TABLE_SIZE>(Inp, Out);
-	//std::cout<<"Input_cos: "<<Input_co<<std::endl;
-}
-
+// *************************************************
+//       Cosine tables
+// *************************************************
+//template<class rT_co, int N_TABLE>
+//void init_cos_table(rT_co table_out[N_TABLE]) {
+//	int INDEX = 0;
+//	//	Implement cos lookup
+//	for (int ii = N_TABLE-1; ii > -1; ii--) {
+//		// Convert from table index to X-value
+//		float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/float(N_TABLE)) - PI_VAL;
+//
+//		// Next, compute lookup table function
+//		rT_co real_val = cos(in_val);
+//		table_out[INDEX] =  real_val;
+//		//std::cout<<"("<<INDEX<<") cos("<<in_val<<") = "<<real_val<<std::endl;
+//		INDEX++;
+//	}
+//	return;
+//}
+//template<class T_co, class rT_co, int TABLE_SIZE>
+//void Cos(T_co &data, rT_co &res) {
+//	// Initialize the lookup table
+//	rT_co cos_table[TABLE_SIZE];
+//	init_cos_table<rT_co, TABLE_SIZE>(cos_table);
+//
+//	// Index into the lookup table based on data
+//	int index;
+//
+//#pragma HLS PIPELINE
+//
+//	double data_rad = data * 0.0174; // (PI_VAL/180);
+//	//std::cout<<"data = "<<data_rad<<std::endl;
+//	index = ((data_rad+PI_VAL)/(2*PI_VAL))*TABLE_SIZE;
+//	//std::cout<<"cos index = "<<index<<std::endl;
+//
+//	if (index < 0) index = 0;
+//	if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
+//	res = cos_table[index];
+//	//std::cout<<"cos_table["<<index<<"] = "<<res<<std::endl;
+//
+//	return;
+//}
+//
+//template<class T_co, class rT_co>
+//void Cos(T_co &Inp, rT_co &Out){
+//	//double Input_co = 0.;
+//	//Input_co = Inp * (M_PI / 180);
+//	Cos<T_co, rT_co, N_TABLE_SIZE>(Inp, Out);
+//	//std::cout<<"Input_cos: "<<Input_co<<std::endl;
+//	//Out = cos(Input_co);
+//}
+//
+//// *************************************************
+////       Sine tables
+//// *************************************************
+//template<class rT_co, int N_TABLE>
+//void init_sin_table(rT_co table_out[N_TABLE]) {
+//	int INDEX = 0;
+//	//	Implement cos lookup
+//	for (int ii = N_TABLE-1; ii > -1; ii--) {
+//		// Convert from table index to X-value
+//		float in_val = ((2*PI_VAL)*((N_TABLE-1)-ii)/float(N_TABLE)) - PI_VAL;
+//
+//		// Next, compute lookup table function
+//		rT_co real_val = sin(in_val);
+//		table_out[INDEX] = real_val;
+//		//std::cout<<"("<<INDEX<<") sin("<<in_val<<") = "<<real_val<<std::endl;
+//		INDEX++;
+//	}
+//	return;
+//}
+//template<class T_co, class rT_co, int TABLE_SIZE>
+//void Sin(T_co &data, rT_co &res) {
+//	// Initialize the lookup table
+//	rT_co sin_table[TABLE_SIZE];
+//	init_sin_table<rT_co, TABLE_SIZE>(sin_table);
+//
+//	// Index into the lookup table based on data
+//	int index;
+//
+//#pragma HLS PIPELINE
+//
+//	double data_rad = data * 0.0174; // (PI_VAL/180);
+//	//std::cout<<"data = "<<data_rad<<std::endl;
+//	index = ((data_rad+PI_VAL)/(2*PI_VAL))*TABLE_SIZE;
+//	//std::cout<<"sin index = "<<index<<std::endl;
+//
+//	if (index < 0) index = 0;
+//	if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
+//	res = sin_table[index];
+//	//std::cout<<"sin_table["<<index<<"] = "<<res<<std::endl;
+//
+//	return;
+//}
+//
+//template<class T_co, class rT_co>
+//void Sin(T_co &Inp, rT_co &Out){
+//	//double Input_co = 0.;
+//	//Input_co = Inp * (M_PI / 180);
+//	Sin<T_co, rT_co, N_TABLE_SIZE>(Inp, Out);
+//	//std::cout<<"Input_cos: "<<Input_co<<std::endl;
+//	//Out = cos(Input_co);
+//}
+//
 
 //template<typename T_si, typename rT_si>
 //void Sin(T_si &Inp, rT_si &Out){
