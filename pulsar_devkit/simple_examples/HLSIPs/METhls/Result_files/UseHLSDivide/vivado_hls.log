@@ -1,0 +1,329 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /data/Xilinx/Vivado/Vivado/2018.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/data/Xilinx/Vivado/Vivado/2018.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'jhong' on host 'correlator2.fnal.gov' (Linux_x86_64 version 3.10.0-957.21.3.el7.x86_64) on Sat Sep 21 22:24:33 CDT 2019
+INFO: [HLS 200-10] On os "Scientific Linux release 7.6 (Nitrogen)"
+INFO: [HLS 200-10] In directory '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls'
+INFO: [HLS 200-10] Opening and resetting project '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met'.
+INFO: [HLS 200-10] Adding design file 'MET.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_test.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'MET_ref.cpp' to the project
+INFO: [HLS 200-10] Opening and resetting solution '/home/jhong/HLS/GlobalCorrelator/pulsar_devkit/simple_examples/HLSIPs/METhls/met/solution_test'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xcvu9p-flga2104-2l-e'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../MET_ref.cpp in debug mode
+   Compiling ../../../../MET_test.cpp in debug mode
+   Compiling ../../../../MET.cpp in debug mode
+   Generating csim.exe
+==== NEVENT 1 ====
+test: pT  --> 80.35, 50.2358, 184.156, 164.092, 216.228, 101.681, 132.466, 267.177, 127.973, 33.8015
+test: phi --> -127.797, 134.389, -103.649, -20.0871, 167.626, -33.3735, 4.80628, 77.7727, -135.81, -27.9193
+test: pT  --> 80.25, 50, 184, 164, 216, 101.5, 132.25, 267, 127.75, 33.75
+test: phi --> -127.805, 134.383, -103.656, -20.0938, 167.625, -33.375, 4.80469, 77.7656, -135.813, -27.9219
+ref : (0) totalX,Y: 48.8106, 63.8251
+ref : (1) totalX,Y: 83.6938, 27.6755
+ref : (2) totalX,Y: 126.16, 206.868
+ref : (3) totalX,Y: -28.0106, 263.06
+ref : (4) totalX,Y: 182.772, 214.84
+ref : (5) totalX,Y: 97.7583, 270.623
+ref : (6) totalX,Y: -34.2443, 259.558
+ref : (7) totalX,Y: -91.9114, -1.32098
+ref : (8) totalX,Y: -0.799708, 88.5436
+ref : (9) totalX,Y: -30.6905, 104.326
+ref : calculated MET: 108.747
+acos(x/pT) = 1.8569
+ref : totalX/missPT = -0.282221
+ref : acos(x/PT) missPhi = 106.447
+test: ref process end
+(0) totalX,Y = totalX,Y - 80.25 * -0.609375, -0.796875 = 48.9023, 63.9492
+(1) totalX,Y = totalX,Y - 50 * -0.6875, 0.726563 = 83.2773, 27.6211
+(2) totalX,Y = totalX,Y - 184 * -0.226563, -0.976563 = 124.965, 207.309
+(3) totalX,Y = totalX,Y - 164 * 0.929688, -0.351563 = -27.5039, 264.965
+(4) totalX,Y = totalX,Y - 216 * -0.976563, 0.234375 = 183.434, 214.34
+(5) totalX,Y = totalX,Y - 101.5 * 0.828125, -0.554688 = 99.3789, 270.641
+(6) totalX,Y = totalX,Y - 132.25 * 0.992188, 0.078125 = -31.8379, 260.309
+(7) totalX,Y = totalX,Y - 267 * 0.21875, 0.96875 = -90.2441, 1.65234
+(8) totalX,Y = totalX,Y - 127.75 * -0.710938, -0.710938 = 0.578125, 92.4746
+(9) totalX,Y = totalX,Y - 33.75 * 0.882813, -0.46875 = -29.2168, 108.295
+hw  : Before sqsqrt X = -29.2168, Y = 108.295
+hw  : missPT_hw  = pt; 112
+hw  : totalX/missPT = -0.260864
+hw  : acos(x/PT) = 104.773
+test: hw process end
+test: MET_ref = 108.747
+test: Phi_ref = 106.447
+test: MET_hw = 112
+test: Phi_hw = 104.773
+==== NEVENT 2 ====
+test: pT  --> 26.1779, 266.063, 74.8617, 39.3615, 134.381, 231.209, 101.657, 280.523, 235.287, 218.926
+test: phi --> 34.194, -109.653, -155.322, 55.2183, 15.7277, -97.4848, -171.284, -113.325, 20.5462, -53.5934
+test: pT  --> 26, 266, 74.75, 39.25, 134.25, 231, 101.5, 280.5, 235.25, 218.75
+test: phi --> 34.1875, -109.656, -155.328, 55.2109, 15.7266, -97.4922, -171.289, -113.328, 20.5391, -53.5938
+ref : (0) totalX,Y: -21.6796, -14.6724
+ref : (1) totalX,Y: 66.3382, 236.41
+ref : (2) totalX,Y: 134.102, 268.228
+ref : (3) totalX,Y: 111.553, 235.965
+ref : (4) totalX,Y: -17.8278, 199.648
+ref : (5) totalX,Y: 11.0988, 429.04
+ref : (6) totalX,Y: 111.437, 445.362
+ref : (7) totalX,Y: 220.953, 703.624
+ref : (8) totalX,Y: 0.54259, 621.289
+ref : (9) totalX,Y: -129.895, 797.114
+ref : calculated MET: 807.629
+acos(x/pT) = 1.73233
+ref : totalX/missPT = -0.160835
+ref : acos(x/PT) missPhi = 99.3057
+test: ref process end
+(0) totalX,Y = totalX,Y - 26 * 0.828125, 0.554688 = -21.5313, -14.4219
+(1) totalX,Y = totalX,Y - 266 * -0.335938, -0.945313 = 67.8281, 237.031
+(2) totalX,Y = totalX,Y - 74.75 * -0.90625, -0.429688 = 135.57, 269.15
+(3) totalX,Y = totalX,Y - 39.25 * 0.578125, 0.8125 = 112.879, 237.26
+(4) totalX,Y = totalX,Y - 134.25 * 0.960938, 0.257813 = -16.127, 202.648
+(5) totalX,Y = totalX,Y - 231 * -0.125, -1 = 12.748, 433.648
+(6) totalX,Y = totalX,Y - 101.5 * -0.992188, -0.171875 = 113.455, 451.094
+(7) totalX,Y = totalX,Y - 280.5 * -0.390625, -0.921875 = 223.025, 709.68
+(8) totalX,Y = totalX,Y - 235.25 * 0.9375, 0.335938 = 2.47852, 630.65
+(9) totalX,Y = totalX,Y - 218.75 * 0.59375, -0.804688 = -127.404, 806.676
+hw  : Before sqsqrt X = -127.404, Y = 806.676
+hw  : missPT_hw  = pt; 817
+hw  : totalX/missPT = -0.156006
+hw  : acos(x/PT) = 98.9531
+test: hw process end
+test: MET_ref = 807.629
+test: Phi_ref = 99.3057
+test: MET_hw = 817
+test: Phi_hw = 98.9531
+==== NEVENT 3 ====
+test: pT  --> 134.829, 65.8315, 39.6638, 185.658, 286.48, 299.343, 107.363, 55.1122, 86.865, 124.941
+test: phi --> -6.36822, 80.765, -119.348, -81.0208, -13.2909, 160.73, 68.5141, -6.15247, 81.4139, -25.3393
+test: pT  --> 134.75, 65.75, 39.5, 185.5, 286.25, 299.25, 107.25, 55, 86.75, 124.75
+test: phi --> -6.375, 80.7578, -119.352, -81.0234, -13.2969, 160.727, 68.5078, -6.15625, 81.4063, -25.3438
+ref : (0) totalX,Y: -134.002, 14.9094
+ref : (1) totalX,Y: -144.847, -50.0227
+ref : (2) totalX,Y: -125.627, -15.3265
+ref : (3) totalX,Y: -155.395, 167.929
+ref : (4) totalX,Y: -434.249, 233.592
+ref : (5) totalX,Y: -152.534, 132.384
+ref : (6) totalX,Y: -192.223, 32.6259
+ref : (7) totalX,Y: -247.019, 38.5146
+ref : (8) totalX,Y: -260.36, -47.3198
+ref : (9) totalX,Y: -373.353, 5.99961
+ref : calculated MET: 373.401
+acos(x/pT) = 3.12552
+ref : totalX/missPT = -0.999871
+ref : acos(x/PT) missPhi = 179.17
+test: ref process end
+(0) totalX,Y = totalX,Y - 134.75 * 0.992188, -0.117188 = -133.697, 15.791
+(1) totalX,Y = totalX,Y - 65.75 * 0.171875, 0.976563 = -144.998, -48.418
+(2) totalX,Y = totalX,Y - 39.5 * -0.484375, -0.882813 = -125.865, -13.5469
+(3) totalX,Y = totalX,Y - 185.5 * 0.15625, -0.992188 = -154.85, 170.504
+(4) totalX,Y = totalX,Y - 286.25 * 0.96875, -0.242188 = -432.154, 239.83
+(5) totalX,Y = totalX,Y - 299.25 * -0.9375, 0.351563 = -151.607, 134.625
+(6) totalX,Y = totalX,Y - 107.25 * 0.375, 0.921875 = -191.826, 35.7539
+(7) totalX,Y = totalX,Y - 55 * 0.992188, -0.117188 = -246.396, 42.1992
+(8) totalX,Y = totalX,Y - 86.75 * 0.164063, 0.984375 = -260.629, -43.1953
+(9) totalX,Y = totalX,Y - 124.75 * 0.898438, -0.429688 = -372.709, 10.4082
+hw  : Before sqsqrt X = -372.709, Y = 10.4082
+hw  : missPT_hw  = pt; 373
+hw  : totalX/missPT = -0.999268
+hw  : acos(x/PT) = 179.992
+test: hw process end
+test: MET_ref = 373.401
+test: Phi_ref = 179.17
+test: MET_hw = 373
+test: Phi_hw = 179.992
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-10] Analyzing design file 'MET.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 81614 ; free virtual = 174022
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 460.070 ; gain = 4.258 ; free physical = 81614 ; free virtual = 174022
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [XFORM 203-603] Inlining function 'ap_fixed_base<1, 0, false, (ap_q_mode)5, (ap_o_mode)3, 0>::operator>>' into 'sqrt_fixed<32, 32>' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:334).
+INFO: [XFORM 203-603] Inlining function 'ap_fixed_base<24, 13, true, (ap_q_mode)5, (ap_o_mode)3, 0>::to_float' into 'MET_hw' (MET.cpp:51).
+INFO: [XFORM 203-603] Inlining function 'ap_fixed_base<16, 14, true, (ap_q_mode)5, (ap_o_mode)3, 0>::to_float' into 'MET_hw' (MET.cpp:51).
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:01:25 ; elapsed = 00:01:30 . Memory (MB): peak = 939.941 ; gain = 484.129 ; free physical = 81192 ; free virtual = 173642
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [XFORM 203-602] Inlining function 'sqrt_fixed<32>' into 'hls::sqrt' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/src/c++/sqrtint32.cpp:8) automatically.
+INFO: [XFORM 203-602] Inlining function 'generic_divide<float>' into 'hls::divide' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/src/c++/dividefloat.cpp:6) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::sqrt' into 'MET_hw' (MET.cpp:35) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::divide' into 'MET_hw' (MET.cpp:51) automatically.
+INFO: [XFORM 203-602] Inlining function 'acos<ap_fixed<18, 5, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0> >' into 'MET_hw' (MET.cpp:52) automatically.
+WARNING: [SYNCHK 200-23] /wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:264: variable-indexed range selection may cause suboptimal QoR.
+INFO: [SYNCHK 200-10] 0 error(s), 1 warning(s).
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:01:25 ; elapsed = 00:01:31 . Memory (MB): peak = 939.941 ; gain = 484.129 ; free physical = 81188 ; free virtual = 173642
+INFO: [XFORM 203-502] Unrolling all loops for pipelining in function 'sqrt_fixed<32, 32>' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:39:64).
+INFO: [XFORM 203-502] Unrolling all loops for pipelining in function 'MET_hw' (MET.cpp:10).
+INFO: [XFORM 203-501] Unrolling loop 'Loop-1' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:262) in function 'sqrt_fixed<32, 32>' completely.
+INFO: [XFORM 203-501] Unrolling loop 'Loop-2' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:280) in function 'sqrt_fixed<32, 32>' completely.
+INFO: [XFORM 203-501] Unrolling loop 'Loop-1' (MET.cpp:24) in function 'MET_hw' completely.
+INFO: [XFORM 203-101] Partitioning array 'allPT_hw.V' (MET.cpp:10) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'allPhi_hw.V' (MET.cpp:10) in dimension 1 completely.
+INFO: [XFORM 203-602] Inlining function 'sqrt_fixed<32>' into 'hls::sqrt' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/src/c++/sqrtint32.cpp:8) automatically.
+INFO: [XFORM 203-602] Inlining function 'generic_divide<float>' into 'hls::divide' (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/src/c++/dividefloat.cpp:6) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::sqrt' into 'MET_hw' (MET.cpp:35) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::divide' into 'MET_hw' (MET.cpp:51) automatically.
+INFO: [XFORM 203-602] Inlining function 'acos<ap_fixed<18, 5, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0> >' into 'MET_hw' (MET.cpp:52) automatically.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock to (/wrk/2018.2/continuous/2018_06_14_2258646/src/products/hls/hls_lib/hlsmath/include/hls_sqrt_apfixed.h:345:1) in function 'sqrt_fixed<32, 32>'... converting 35 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (./MET.h:67:19) to (./MET.h:85:2) in function 'acos<ap_fixed<18, 5, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, 1024>'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (./MET.h:158:16) to (./MET.h:179:1) in function 'Sin<ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock to (MET.cpp:44:6) in function 'MET_hw'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (MET.cpp:51:28) in function 'MET_hw'... converting 18 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (./MET.h:117:16) to (./MET.h:136:1) in function 'Cos<ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:01:27 ; elapsed = 00:01:32 . Memory (MB): peak = 1006.348 ; gain = 550.535 ; free physical = 81091 ; free virtual = 173558
+WARNING: [XFORM 203-631] Renaming function 'acos<ap_fixed<18, 5, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, 1024>' to 'acos' (./MET.h:75:2)
+WARNING: [XFORM 203-631] Renaming function 'Sin<ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' to 'Sin' (./MET.h:167:1)
+WARNING: [XFORM 203-631] Renaming function 'Cos<ap_fixed<16, 9, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 3, (ap_q_mode)5, (ap_o_mode)3, 0>, activ_config>' to 'Cos' (./MET.h:125:1)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:01:27 ; elapsed = 00:01:33 . Memory (MB): peak = 1006.348 ; gain = 550.535 ; free physical = 81045 ; free virtual = 173515
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'MET_hw' ...
+WARNING: [SYN 201-103] Legalizing function name 'sqrt_fixed<32, 32>' to 'sqrt_fixed_32_32_s'.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Cos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'Cos'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 5.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 93.24 seconds; current allocated memory: 516.765 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.05 seconds; current allocated memory: 516.961 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Sin' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'Sin'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 5.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.07 seconds; current allocated memory: 517.191 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.03 seconds; current allocated memory: 517.379 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'sqrt_fixed_32_32_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'sqrt_fixed<32, 32>'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 4.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 518.164 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.09 seconds; current allocated memory: 518.928 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'acos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'acos'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.2 seconds; current allocated memory: 519.175 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.05 seconds; current allocated memory: 519.321 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'MET_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'MET_hw'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 39.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.29 seconds; current allocated memory: 520.652 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.62 seconds; current allocated memory: 522.294 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Cos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'MET_hw_mul_mul_9ns_16s_24_1_1' to 'MET_hw_mul_mul_9nbkb' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_mul_mul_9nbkb': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Cos'.
+INFO: [HLS 200-111]  Elapsed time: 0.88 seconds; current allocated memory: 523.296 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Sin' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_mul_mul_9nbkb': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Sin'.
+INFO: [HLS 200-111]  Elapsed time: 0.23 seconds; current allocated memory: 524.451 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'sqrt_fixed_32_32_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'sqrt_fixed_32_32_s'.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 526.482 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'acos' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'acos'.
+INFO: [HLS 200-111]  Elapsed time: 0.41 seconds; current allocated memory: 529.550 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'MET_hw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_0_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_1_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_2_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_3_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_4_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_5_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_6_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_7_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_8_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPT_hw_9_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/missPT_hw_V' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_0_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_1_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_2_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_3_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_4_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_5_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_6_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_7_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_8_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/allPhi_hw_9_V' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'MET_hw/missPhi_hw_V' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'MET_hw' to 'ap_ctrl_hs'.
+INFO: [SYN 201-210] Renamed object name 'MET_hw_fdiv_32ns_32ns_32_12_1' to 'MET_hw_fdiv_32ns_cud' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'MET_hw_uitofp_32ns_32_6_1' to 'MET_hw_uitofp_32ndEe' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'MET_hw_fpext_32ns_64_1_1' to 'MET_hw_fpext_32nseOg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'MET_hw_mul_mul_9s_16s_22_1_1' to 'MET_hw_mul_mul_9sfYi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'MET_hw_mul_mul_8s_16s_22_1_1' to 'MET_hw_mul_mul_8sg8j' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'MET_hw_mul_mul_10s_13ns_22_1_1' to 'MET_hw_mul_mul_10hbi' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_fdiv_32ns_cud': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_fpext_32nseOg': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_mul_mul_10hbi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_mul_mul_8sg8j': 10 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_mul_mul_9sfYi': 10 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'MET_hw_uitofp_32ndEe': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'MET_hw'.
+INFO: [HLS 200-111]  Elapsed time: 0.37 seconds; current allocated memory: 533.109 MB.
+INFO: [RTMG 210-279] Implementing memory 'Cos_cos_table1_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'Sin_sin_table2_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'acos_acos_table3_rom' using auto ROMs.
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:01:32 ; elapsed = 00:01:40 . Memory (MB): peak = 1006.348 ; gain = 550.535 ; free physical = 81008 ; free virtual = 173495
+INFO: [SYSC 207-301] Generating SystemC RTL for MET_hw.
+INFO: [VHDL 208-304] Generating VHDL RTL for MET_hw.
+INFO: [VLOG 209-307] Generating Verilog RTL for MET_hw.
+INFO: [HLS 200-112] Total elapsed time: 99.76 seconds; peak allocated memory: 533.109 MB.
+INFO: [Common 17-206] Exiting vivado_hls at Sat Sep 21 22:26:12 2019...
