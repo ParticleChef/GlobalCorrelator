@@ -1,5 +1,6 @@
 #include "MET.h"
 #include <cmath>
+#include "hls_math.h"
 #include <cassert>
 #ifndef __SYNTHESIS__
 #include <cstdio>
@@ -16,25 +17,26 @@ void MET_hw(  pt_t allPT_hw[TotalN], pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN
 
 	fixedXY_t totalX = 0;
 	fixedXY_t totalY = 0;
-	sincos_t co[TotalN] = {0};
-	sincos_t si[TotalN] = {0};
+	sincos_t co = 0;
+	sincos_t si = 0;
 	pt_t pt = 0;
 
-#pragma HLS ARRAY_PARTITION variable=co complete
-#pragma HLS ARRAY_PARTITION variable=si complete
-
-	Cos<etaphi_t,sincos_t,activ_config>(allPhi_hw,co);
-	Sin<etaphi_t,sincos_t,activ_config>(allPhi_hw,si);
 	for( i = 0; i < TotalN; i++){
-		totalX = totalX -allPT_hw[i]*co[i];
-		totalY = totalY -allPT_hw[i]*si[i];//n(allPhi_hw[i]);
+		Cos<etaphi_t,sincos_t,activ_config>(allPhi_hw[i],co);
+		Sin<etaphi_t,sincos_t,activ_config>(allPhi_hw[i],si);
+		totalX = totalX -allPT_hw[i]*co;
+		totalY = totalY -allPT_hw[i]*si;//n(allPhi_hw[i]);
+		std::cout<<"("<<i<<") totalX,Y = totalX,Y - "<<allPT_hw[i]<<" * "<<co<<", "<<si<<" = "<<totalX<<", "<<totalY<<std::endl;
 	}
 
-	Sqsqrt<fixedXY_t, pt_t>(totalX, totalY, pt);
-	std::cout<<"hw  : calculated MET: "<<pt<<std::endl;
+	std::cout<<"hw  : Before sqsqrt X = "<<totalX<<", Y = "<<totalY<<std::endl;
+	//Sqsqrt<fixedXY_t, pt_t>(totalX, totalY, pt);
+	int32_t total = totalX*totalX + totalY*totalY;
+	pt = hls::sqrt(total);
+	//std::cout<<"hw  : calculated MET: "<<pt<<std::endl;
 
 	missPT_hw = pt; 
-	//std::cout<<"hw  : missPT_hw  = pt; "<<missPT_hw <<std::endl;
+	std::cout<<"hw  : missPT_hw  = pt; "<<missPT_hw <<std::endl;
 
 	temp_t divi = 0;
 	etaphi_t res_phi = 0;
@@ -44,7 +46,11 @@ void MET_hw(  pt_t allPT_hw[TotalN], pt_t &missPT_hw,  etaphi_t allPhi_hw[TotalN
 		res_phi = 0; 
 	}
 	else{
-		divi = totalX/missPT_hw;    
+		//divi = totalX/missPT_hw;    
+		//Division<fixedXY_t,pt_t,temp_t,N_NUMERATOR,N_DENOMINATOR>(totalX,missPT_hw,divi);
+		//divi = hls::divide(float(totalX),float(missPT_hw));    
+		//divi = division<fixedXY_t, pt_t, temp_t>(totalX, missPT_hw);
+		divi = division(totalX, missPT_hw);
 		if(totalY < 0){acos<temp_t, etaphi_t>(divi, res_phi); res_phi = -1*res_phi;}
 		if(totalY >= 0) acos<temp_t, etaphi_t>(divi, res_phi);
 	}
