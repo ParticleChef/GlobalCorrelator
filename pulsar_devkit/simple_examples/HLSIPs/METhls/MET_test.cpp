@@ -43,8 +43,8 @@ int main() {
 	FILE *METrefout;
 	FILE *PHIrefout;
 	//FILE *RANDdist;
-	FILE *PTin;
-	FILE *PHIin;
+	//FILE *PTin;
+	//FILE *PHIin;
 	METout=fopen("MET_out.txt","w");
 	PHIout=fopen("PHI_out.txt","w");
 	METout_=fopen("MET_out_.txt","w");
@@ -52,8 +52,8 @@ int main() {
 	METrefout=fopen("METref_out.txt","w");
 	PHIrefout=fopen("PHIref_out.txt","w");
 	//RANDdist=fopen("RAND_dist.txt","w");
-	PTin=fopen("PT_in.txt","w");
-	PHIin=fopen("PHI_in.txt","w");
+	//PTin=fopen("PT_in.txt","w");
+	//PHIin=fopen("PHI_in.txt","w");
 
 	double allPT_ref[TotalN];
 	double missPT_ref;
@@ -80,8 +80,8 @@ int main() {
 			input_pt[nn] = rand_input(&n)*290.+10.;//%291 + 10; //10 ~ 300
 			input_ph[nn] = rand_input(&n)*360.-180.;//ran0(n);//%360 - 180; // -180 ~ 180
 
-			fprintf(PTin, "%f\n", input_pt[nn]);
-			fprintf(PHIin, "%f\n", input_ph[nn]);
+			//fprintf(PTin, "%f\n", input_pt[nn]);
+			//fprintf(PHIin, "%f\n", input_ph[nn]);
 
 			allPT_hw[nn] =  input_pt[nn];
 			allPhi_hw[nn] = input_ph[nn];
@@ -89,11 +89,11 @@ int main() {
 			allPT_ref[nn] =  input_pt[nn];
 			allPhi_ref[nn] = input_ph[nn];
 		}
-//		printf("test pt --> %d, %d\n",  allPT_ref[0],  allPT_ref[1] );// int(allPT_ref[0]),  int(allPT_ref[1]) );
-//		printf("test phi --> %d, %d\n", allPhi_ref[0], allPhi_ref[1] );//int(allPhi_ref[0]), int(allPhi_ref[1]) );
 
-		std::cout<<"test: pT  --> "; for(int i = 0; i <TotalN; i++) std::cout<<allPT_ref[i]<<", "; std::cout<<allPT_ref[TotalN]<<std::endl;
-		std::cout<<"test: phi --> "; for(int i = 0; i <TotalN; i++) std::cout<<allPhi_ref[i]<<", "; std::cout<<allPhi_ref[TotalN]<<std::endl;
+		std::cout<<"test: pT  --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPT_ref[i]<<", "; std::cout<<allPT_ref[TotalN-1]<<std::endl;
+		std::cout<<"test: phi --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPhi_ref[i]<<", "; std::cout<<allPhi_ref[TotalN-1]<<std::endl;
+		std::cout<<"test: pT  --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPT_hw[i]<<", "; std::cout<<allPT_hw[TotalN-1]<<std::endl;
+		std::cout<<"test: phi --> "; for(int i = 0; i <TotalN-1; i++) std::cout<<allPhi_hw[i]<<", "; std::cout<<allPhi_hw[TotalN-1]<<std::endl;
 
 		int i;
 		int j;
@@ -120,7 +120,7 @@ int main() {
 		fprintf(METout, "%f\n", wrt_pT);
 		fprintf(PHIout, "%f\n", wrt_ph);
 		fprintf(METout_, "%f\n", wrt_pT/missPT_ref);
-		fprintf(PHIout_, "%f\n", wrt_ph/missPT_ref);
+		fprintf(PHIout_, "%f\n", wrt_ph/missPhi_ref);
 		fprintf(METrefout, "%f\n", missPT_ref);
 		fprintf(PHIrefout, "%f\n", missPhi_ref);
 
@@ -133,8 +133,8 @@ int main() {
 	fclose(METrefout);
 	fclose(PHIrefout);
 	//fclose(RANDdist);
-	fclose(PTin);
-	fclose(PHIin);
+	//fclose(PTin);
+	//fclose(PHIin);
 
 	return 0;
 }
